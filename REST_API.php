@@ -18,6 +18,7 @@ $properties = [
         "id" => 1,
         "title" => "1-комнатная квартира в центре",
         "alias" => "some-addr-1",
+        "city"=>"Москва",
         "address" => "ул. Ленина, 10, Москва",
         "price" => 55000,
         "description"=> "Полностью отремонтированный и очень чистый дом с 4 спальнями и 2 ванными комнатами для вашего отдыха. Дом оснащён новой мебелью высокого класса и бытовой техникой из нержавеющей стали. Включает большую отапливаемую бассейн, летнюю кухню с грилем и просторный задний двор для развлечений.",
@@ -34,6 +35,7 @@ $properties = [
         "id" => 2,
         "title" => "2-комнатная квартира рядом с метро",
         "alias" => "some-addr-2",
+        "city"=>"Санкт-Петербург",
         "address" => "пр. Мира, 50, Санкт-Петербург",
         "price" => 47000,
         "description"=> "",
@@ -50,6 +52,7 @@ $properties = [
         "id" => 3,
         "title" => "Уютная студия в новом доме",
         "alias" => "some-addr-3",
+        "city"=>"Казань",
         "address" => "ул. Академика Королёва, 7, Казань",
         "price" => 30000,
         "description"=> "",
@@ -66,6 +69,7 @@ $properties = [
         "id" => 4,
         "title" => "3-комнатная квартира в спальном районе",
         "alias" => "some-addr-4",
+        "city"=>"Екатеринбург",
         "address" => "ул. Победы, 100, Екатеринбург",
         "price" => 42000,
         "description"=> "",
@@ -82,6 +86,7 @@ $properties = [
         "id" => 5,
         "title" => "Лофт с панорамными окнами",
         "alias" => "some-addr-5",
+        "city"=>"Москва",
         "address" => "ул. Бауманская, 20, Москва",
         "price" => 90000,
         "description"=> "",
@@ -98,6 +103,7 @@ $properties = [
         "id" => 6,
         "title" => "1-комнатная квартира у парка",
         "alias" => "some-addr-6",
+        "city"=>"Новосибирск",
         "address" => "ул. Зелёная, 15, Новосибирск",
         "price" => 28000,
         "description"=> "",
@@ -114,6 +120,7 @@ $properties = [
         "id" => 7,
         "title" => "Современная квартира-студия",
         "alias" => "some-addr-7",
+        "city"=>"Нижний Новгород",
         "address" => "ул. Центральная, 8, Нижний Новгород",
         "price" => 32000,
         "description"=> "",
@@ -130,6 +137,7 @@ $properties = [
         "id" => 8,
         "title" => "Квартира у набережной",
         "alias" => "some-addr-8",
+        "city"=>"Санкт-Петербург",
         "address" => "наб. реки Фонтанки, 80, Санкт-Петербург",
         "price" => 75000,
         "description"=> "",
@@ -146,6 +154,7 @@ $properties = [
         "id" => 9,
         "title" => "Квартира с евроремонтом",
         "alias" => "some-addr-9",
+        "city"=>"Самара",
         "address" => "ул. Гагарина, 22, Самара",
         "price" => 40000,
         "description"=> "",
@@ -162,6 +171,7 @@ $properties = [
         "id" => 10,
         "title" => "4-комнатная квартира для семьи",
         "alias" => "some-addr-10",
+        "city"=>"Краснодар",
         "address" => "ул. Светлая, 5, Краснодар",
         "price" => 60000,
         "description"=> "",
@@ -196,6 +206,20 @@ if ($resource === 'properties') {
                     $result = ["error" => "Property not found"];
                 }
             } else {
+                //фильтрация списка
+                // Получаем массив городов из GET-параметра (если передан)
+                $selectedCities = $_GET['cities'] ?? [];
+
+                // Фильтруем массив $properties по городам
+                $properties = array_filter($properties, function($property) use ($selectedCities) {
+                    // Если cities не указаны, возвращаем все свойства
+                    if (empty($selectedCities)) {
+                        return true;
+                    }
+                    // Проверяем, есть ли город свойства в выбранных городах
+                    return in_array($property['city'], $selectedCities);
+                });
+
                 // Пагинация списка
                 $page = isset($_GET['page']) ? max((int)$_GET['page'], 1) : 1;
                 $limit = isset($_GET['limit']) ? max((int)$_GET['limit'], 1) : 5;

@@ -25,7 +25,7 @@ const Home = () => {
     ]);
 
     const [filters, setFilters] = useState<FilterProps>(() => parseQueryParams(location.search));
-    const debouncedFilters = useDebouncedValue(filters, 3000);
+    const debouncedFilters = useDebouncedValue(filters, 500);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [rowPerPage] = useState(6);
