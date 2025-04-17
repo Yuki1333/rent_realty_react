@@ -17,8 +17,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
     return (
         <Modal isOpen={isOpen} onClose={onClose} title="Вход">
             <form onSubmit={handleSubmit} className="space-y-4">
-                <CustomInput title='Ваше имя' type="text" value={username} onChange={ (e)=>{setUsername(e.target.value) } } required />
-                <CustomInput title='Ваш Email' type="email" value={email} onChange={ (e)=>{setEmail(e.target.value) } } required />
+                <CustomInput label='Ваше имя' type="text" value={username} onChange={ (e)=>{setUsername(e.target.value) } } required />
+                <CustomInput label='Ваш Email' type="email" value={email} onChange={ (e)=>{setEmail(e.target.value) } } required />
                 <Btn type="submit" className="bg-blue-600 text-white hover:bg-blue-700">Войти</Btn>
             </form>
         </Modal>

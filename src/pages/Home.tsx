@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSearchParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { buildQueryParams, parseQueryParams } from '@utils/helper_func';
 
@@ -17,7 +17,7 @@ const Home = () => {
 
     const location = useLocation();
 
-    const [filtersSortOptions, setFiltersSortOptions] = useState([
+    const [filtersSortOptions] = useState([
         { value: 'price_asc', label:'По возрастанию цены' },
         { value: 'price_desc', label:'По убыванию цены' },
         { value: 'date_new', label:'Новые' },
@@ -27,9 +27,8 @@ const Home = () => {
     const [filters, setFilters] = useState<FilterProps>(() => parseQueryParams(location.search));
     const debouncedFilters = useDebouncedValue(filters, 3000);
 
-    const [searchParams, setSearchParams] = useSearchParams();
     const [currentPage, setCurrentPage] = useState(1);
-    const [rowPerPage, setRowPerPage] = useState(6);
+    const [rowPerPage] = useState(6);
 
 
     const handleFilterChange = (updated: Partial<FilterProps>) => {
@@ -43,8 +42,7 @@ const Home = () => {
     
         setFilters(newFilters);
     
-        const query = buildQueryParams(newFilters);
-        setSearchParams(query);
+        buildQueryParams(newFilters);
     }
 
     const handlePageChange = (page: number) => {
@@ -52,11 +50,10 @@ const Home = () => {
     }
 
     //выгружаем Новые предложения
-    const { offersList, totalPages, loading, error } = useOffers(currentPage, rowPerPage, debouncedFilters);
+    const { offersList, totalPages } = useOffers(currentPage, rowPerPage, debouncedFilters);
 
     return (
         <>
-            <p>{JSON.stringify(filters)}</p>
             <BannersList />
             <OfferFilter sortOptions={filtersSortOptions} filters={filters} handleFilterChange={handleFilterChange} />
             {
