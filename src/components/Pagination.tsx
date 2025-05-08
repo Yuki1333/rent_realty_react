@@ -1,8 +1,9 @@
 import { PaginationProps } from "@models/UI/PaginationProps";
 
 
-const Pagination: React.FC<PaginationProps> = ({ currentPage, rowPerPage, totalPages, onPageChange }) => {
+const Pagination: React.FC<PaginationProps> = ({ currentPage, rowPerPage, totalPages, currentRowCount, onPageChange }) => {
 
+    const showPagination = currentRowCount == (currentPage * rowPerPage);
     const showLoadMore = (currentPage * rowPerPage) < (totalPages * rowPerPage);
 
     return (

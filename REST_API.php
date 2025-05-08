@@ -18,10 +18,10 @@ $properties = [
         "id" => 1,
         "title" => "1-комнатная квартира в центре",
         "alias" => "some-addr-1",
-        "city"=>"Москва",
+        "city" => "Москва",
         "address" => "ул. Ленина, 10, Москва",
         "price" => 55000,
-        "description"=> "Полностью отремонтированный и очень чистый дом с 4 спальнями и 2 ванными комнатами для вашего отдыха. Дом оснащён новой мебелью высокого класса и бытовой техникой из нержавеющей стали. Включает большую отапливаемую бассейн, летнюю кухню с грилем и просторный задний двор для развлечений.",
+        "description" => "Полностью отремонтированный и очень чистый дом с 4 спальнями и 2 ванными комнатами для вашего отдыха. Дом оснащён новой мебелью высокого класса и бытовой техникой из нержавеющей стали. Включает большую отапливаемую бассейн, летнюю кухню с грилем и просторный задний двор для развлечений.",
         "rooms" => 1,
         "area" => 38,
         "floor" => 3,
@@ -35,10 +35,10 @@ $properties = [
         "id" => 2,
         "title" => "2-комнатная квартира рядом с метро",
         "alias" => "some-addr-2",
-        "city"=>"Санкт-Петербург",
+        "city" => "Санкт-Петербург",
         "address" => "пр. Мира, 50, Санкт-Петербург",
         "price" => 47000,
-        "description"=> "",
+        "description" => "",
         "rooms" => 2,
         "area" => 54,
         "floor" => 5,
@@ -52,10 +52,10 @@ $properties = [
         "id" => 3,
         "title" => "Уютная студия в новом доме",
         "alias" => "some-addr-3",
-        "city"=>"Казань",
+        "city" => "Казань",
         "address" => "ул. Академика Королёва, 7, Казань",
         "price" => 30000,
-        "description"=> "",
+        "description" => "",
         "rooms" => 1,
         "area" => 26,
         "floor" => 9,
@@ -69,10 +69,10 @@ $properties = [
         "id" => 4,
         "title" => "3-комнатная квартира в спальном районе",
         "alias" => "some-addr-4",
-        "city"=>"Екатеринбург",
+        "city" => "Екатеринбург",
         "address" => "ул. Победы, 100, Екатеринбург",
         "price" => 42000,
-        "description"=> "",
+        "description" => "",
         "rooms" => 3,
         "area" => 72,
         "floor" => 2,
@@ -86,10 +86,10 @@ $properties = [
         "id" => 5,
         "title" => "Лофт с панорамными окнами",
         "alias" => "some-addr-5",
-        "city"=>"Москва",
+        "city" => "Москва",
         "address" => "ул. Бауманская, 20, Москва",
         "price" => 90000,
-        "description"=> "",
+        "description" => "",
         "rooms" => 2,
         "area" => 65,
         "floor" => 12,
@@ -103,10 +103,10 @@ $properties = [
         "id" => 6,
         "title" => "1-комнатная квартира у парка",
         "alias" => "some-addr-6",
-        "city"=>"Новосибирск",
+        "city" => "Новосибирск",
         "address" => "ул. Зелёная, 15, Новосибирск",
         "price" => 28000,
-        "description"=> "",
+        "description" => "",
         "rooms" => 1,
         "area" => 34,
         "floor" => 4,
@@ -120,10 +120,10 @@ $properties = [
         "id" => 7,
         "title" => "Современная квартира-студия",
         "alias" => "some-addr-7",
-        "city"=>"Нижний Новгород",
+        "city" => "Нижний Новгород",
         "address" => "ул. Центральная, 8, Нижний Новгород",
         "price" => 32000,
-        "description"=> "",
+        "description" => "",
         "rooms" => 1,
         "area" => 30,
         "floor" => 7,
@@ -137,10 +137,10 @@ $properties = [
         "id" => 8,
         "title" => "Квартира у набережной",
         "alias" => "some-addr-8",
-        "city"=>"Санкт-Петербург",
+        "city" => "Санкт-Петербург",
         "address" => "наб. реки Фонтанки, 80, Санкт-Петербург",
         "price" => 75000,
-        "description"=> "",
+        "description" => "",
         "rooms" => 2,
         "area" => 58,
         "floor" => 6,
@@ -154,10 +154,10 @@ $properties = [
         "id" => 9,
         "title" => "Квартира с евроремонтом",
         "alias" => "some-addr-9",
-        "city"=>"Самара",
+        "city" => "Самара",
         "address" => "ул. Гагарина, 22, Самара",
         "price" => 40000,
-        "description"=> "",
+        "description" => "",
         "rooms" => 2,
         "area" => 49,
         "floor" => 10,
@@ -171,10 +171,10 @@ $properties = [
         "id" => 10,
         "title" => "4-комнатная квартира для семьи",
         "alias" => "some-addr-10",
-        "city"=>"Краснодар",
+        "city" => "Краснодар",
         "address" => "ул. Светлая, 5, Краснодар",
         "price" => 60000,
-        "description"=> "",
+        "description" => "",
         "rooms" => 4,
         "area" => 90,
         "floor" => 1,
@@ -209,16 +209,45 @@ if ($resource === 'properties') {
                 //фильтрация списка
                 // Получаем массив городов из GET-параметра (если передан)
                 $selectedCities = $_GET['cities'] ?? [];
+                $priceFrom = isset($_GET['priceFrom']) ? (int)$_GET['priceFrom'] : null;
+                $priceTo = isset($_GET['priceTo']) ? (int)$_GET['priceTo'] : null;
+                $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
 
                 // Фильтруем массив $properties по городам
-                $properties = array_filter($properties, function($property) use ($selectedCities) {
-                    // Если cities не указаны, возвращаем все свойства
-                    if (empty($selectedCities)) {
-                        return true;
+                $properties = array_filter($properties, function ($property) use ($selectedCities, $priceFrom, $priceTo) {
+                    // Фильтр по городам (если cities не пуст)
+                    if (!empty($selectedCities) && !in_array($property['city'], $selectedCities)) {
+                        return false;
                     }
-                    // Проверяем, есть ли город свойства в выбранных городах
-                    return in_array($property['city'], $selectedCities);
+
+                    // Фильтр по цене (если указаны priceFrom или priceTo)
+                    if ($priceFrom !== null && $property['price'] < $priceFrom) {
+                        return false;
+                    }
+                    if ($priceTo !== null && $property['price'] > $priceTo) {
+                        return false;
+                    }
+
+                    return true;
                 });
+
+                // Сортировка
+                if (!empty($sort)) {
+                    usort($properties, function ($a, $b) use ($sort) {
+                        switch ($sort) {
+                            case 'price_asc':
+                                return $a['price'] <=> $b['price']; // По возрастанию цены
+                            case 'price_desc':
+                                return $b['price'] <=> $a['price']; // По убыванию цены
+                            case 'date_new':
+                                return strtotime($b['available_from']) <=> strtotime($a['available_from']); // Новые сначала
+                            case 'date_old':
+                                return strtotime($a['available_from']) <=> strtotime($b['available_from']); // Старые сначала
+                            default:
+                                return 0;
+                        }
+                    });
+                }
 
                 // Пагинация списка
                 $page = isset($_GET['page']) ? max((int)$_GET['page'], 1) : 1;

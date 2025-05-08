@@ -25,7 +25,7 @@ const Home = () => {
     ]);
 
     const [filters, setFilters] = useState<FilterProps>(() => parseQueryParams(location.search));
-    const debouncedFilters = useDebouncedValue(filters, 500);
+    const debouncedFilters = useDebouncedValue(filters, 1500);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [rowPerPage] = useState(6);
@@ -60,7 +60,7 @@ const Home = () => {
             offersList.length !== 0
             ? <>
                 <OfferList label="Новые предложения" offers={offersList} />
-                <Pagination currentPage={currentPage} rowPerPage={rowPerPage} totalPages={totalPages} onPageChange={handlePageChange} />
+                <Pagination currentPage={currentPage} rowPerPage={rowPerPage} totalPages={totalPages} currentRowCount={offersList.length} onPageChange={handlePageChange} />
             </>
             : <p>List is empty</p>
             }
